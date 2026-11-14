@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure access and verified association between astronaut, baseline and monitoring session.">
+    <title>Connection | BioCosmosX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/pages/connection.css">
+</head>
+<body>
+
+    <header class="site-navbar" id="site-navbar"></header>
+
+    <main class="container connection-main">
+
+        <p class="eyebrow">MISSION DAY 042   /   CREW 01</p>
+
+        <span class="pill">
+            <span class="status-indicator"></span>
+            Bio-Monitor connected
+        </span>
+
+        <h1 class="connection-title">Connection</h1>
+        <p class="connection-lead">
+            Secure access and verified association between astronaut, baseline and monitoring session.
+        </p>
+
+        <!-- Step numbers (01, 02...). Copy an <li> to add a step. -->
+        <ol class="step-list">
+
+            <li class="card step-card">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Verify identity</h2>
+                        <span class="pill">Verified</span>
+                    </div>
+                    <p class="step-card__description">Authenticate with the onboard device's supported biometric system.</p>
+                </div>
+            </li>
+
+            <li class="card step-card">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Retrieve approved baseline</h2>
+                        <span class="pill">Verified</span>
+                    </div>
+                    <p class="step-card__description">Load the correct astronaut's pre-flight means and standard deviations.</p>
+                </div>
+            </li>
+
+            <li class="card step-card">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Connect Bio-Monitor</h2>
+                        <span class="pill">Connected</span>
+                    </div>
+                    <p class="step-card__description">Pair with an authorized session and verify the wearer association.</p>
+                </div>
+            </li>
+
+            <li class="card step-card">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Start monitoring</h2>
+                        <span class="pill">Ready</span>
+                    </div>
+                    <p class="step-card__description">Check incoming data quality and begin contextual interpretation.</p>
+                </div>
+            </li>
+
+        </ol>
+
+    </main>
+
+    <script src="js/navbar.js" defer></script>
+</body>
+</html>
