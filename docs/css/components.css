@@ -1,0 +1,98 @@
+/* =========================================
+   SHARED COMPONENTS
+========================================= */
+
+.card {
+    background-color: var(--color-surface);
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--radius-card);
+}
+
+.status-indicator {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--color-text-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.075rem;
+}
+
+.data-interpretation {
+    color: var(--color-secondary);
+}
+
+
+/* Status. Pick the look with data-tone (default is success). */
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.pill[data-tone="accent"] {
+    background-color: var(--color-surface-soft);
+    color: var(--color-secondary);
+}
+
+.pill[data-tone="neutral"] {
+    background-color: var(--color-neutral-soft);
+    color: var(--color-text-muted);
+}
+
+.pill[data-tone="warning"] {
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning);
+}
+
+
+/* Section heading row: title on the left, optional status on the right. */
+
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+.section-header h2 {
+    color: var(--color-primary);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 700;
+}
+
+.section-header__note {
+    margin-top: 0.25rem;
+    color: var(--color-text-subtle);
+    font-size: 0.85rem;
+}
+
+
+/* Footer line */
+
+.site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding-block: 1.25rem;
+    border-top: 0.0625rem solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
