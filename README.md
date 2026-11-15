@@ -54,6 +54,7 @@ These parameters represent the team's agreed project scope. They may require dif
 
 ## 5. Data Sources and Simulation
 The proposed system is designed to receive health measurements from multiple sources. These may include wearable monitoring devices, separate medical measurement technologies, scheduled clinical assessments and simulated data used during prototype development.
+
 5.1 Data Sources
 The project considers the following sources:
 Data Source	Purpose
@@ -85,6 +86,7 @@ An example of a simulated measurement record is shown below:
 }
 
 The values used in simulated records are illustrative and are not actual astronaut measurements or clinically validated reference values.
+
 5.3 Data Integration Considerations
 The project recognises that the selected health parameters require different measurement technologies and data acquisition methods.
 
@@ -97,6 +99,7 @@ The application will aim to:
 - Validate incoming records before processing.
 - Store measurements for historical review and trend analysis.
 Direct integration with operational spaceflight monitoring hardware will depend on the availability of compatible interfaces, access permissions and technical documentation.
+
 5.4 Scope of Current Data
 At the prototype stage, simulated data will be used where actual device data or compatible interfaces are unavailable.
 
