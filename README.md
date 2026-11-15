@@ -43,6 +43,7 @@ The project's agreed monitoring scope includes ten health parameters:
 | Blood Glucose | Measurement of glucose concentration in the blood. |
 | Heart Rate | Number of heartbeats per minute. |
 | Respiratory Rate | Number of breathing cycles per minute. |
+| Activity level | Assessment of an astronaut activity level, including activity intensity and movement. |
 | Internal Jugular Vein (IJV) Area and Flow Grade | Assessment of internal jugular vein dimensions and blood-flow characteristics. |
 | Optic Nerve Sheath Diameter (ONSD) | Ultrasound-based measurement associated with assessing changes in intracranial pressure. |
 | Carotid Intima-Media Thickness (cIMT) | Measurement of the thickness of the inner layers of the carotid artery wall. |
