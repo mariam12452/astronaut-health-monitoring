@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AstroVital Astronaut Health Monitoring Dashboard">
+    <title>AstroVital | Astronaut Health Monitoring</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/pages/overview.css">
+</head>
+<body>
+
+    <!-- Navbar is built by js/navbar.js -->
+    <header class="site-navbar" id="site-navbar"></header>
+
+    <main class="container overview-main">
+
+        <!-- Page header -->
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">MISSION CONTROL / OVERVIEW</p>
+                <h1 class="page-title">Health Overview</h1>
+            </div>
+
+            <p class="page-description">
+                Real-time physiological monitoring and health assessment.
+            </p>
+        </header>
+
+        <div class="dashboard">
+
+            <!-- Overall health summary -->
+            <section class="card health-summary">
+
+                <div class="health-summary-header">
+                    <div>
+                        <p class="eyebrow">OVERALL HEALTH ASSESSMENT</p>
+                        <h2 id="status-headline">Loading…</h2>
+                    </div>
+
+                    <span class="pill" id="status-pill" data-tone="neutral">
+                        <span class="status-indicator"></span>
+                        <span id="status-pill-text">—</span>
+                    </span>
+                </div>
+
+                <p class="health-summary-description" id="status-description">
+                    Retrieving the latest readings from the monitoring service.
+                </p>
+
+                <div class="monitoring-context">
+                    <div class="context-item">
+                        <span class="context-label">Mission Day</span>
+                        <span class="context-value" id="ctx-mission-day">—</span>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Current Activity</span>
+                        <span class="context-value" id="ctx-activity">—</span>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Monitoring</span>
+                        <span class="context-value" id="ctx-monitoring">—</span>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Physiological metrics -->
+            <section class="metrics-section">
+
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">LIVE BIOMETRIC DATA</p>
+                        <h2>Physiological Metrics</h2>
+                    </div>
+
+                    <span class="section-status" id="live-indicator" data-tone="neutral">
+                        <span class="status-indicator"></span>
+                        <span id="live-indicator-text">Loading…</span>
+                    </span>
+                </div>
+
+                <div class="metrics-grid" id="metrics-grid">
+
+                    <article class="card metric-card" data-metric="heartRate">
+                        <div class="metric-card-header">
+                            <span class="metric-icon"></span>
+                            <span class="metric-label">CARDIOVASCULAR</span>
+                            <span class="pill metric-status" data-role="status" data-tone="neutral" hidden></span>
+                        </div>
+                        <h3>Heart Rate</h3>
+                        <div class="metric-reading">
+                            <span class="metric-value" data-role="value">—</span>
+                            <span class="metric-unit" data-role="unit">bpm</span>
+                            <span class="metric-tag" data-role="tag" hidden></span>
+                        </div>
+                        <div class="metric-comparison" data-role="comparison">
+                            <span class="comparison-label" data-role="comparison-label">Baseline:</span>
+                            <span class="comparison-value" data-role="comparison-value">—</span>
+                            <span class="comparison-change" data-role="comparison-change" hidden></span>
+                        </div>
+                        <div class="metric-visualization"></div>
+                    </article>
+                    <article class="card metric-card" data-metric="respiratoryRate">
+                        <div class="metric-card-header">
+                            <span class="metric-icon"></span>
+                            <span class="metric-label">RESPIRATORY</span>
+                            <span class="pill metric-status" data-role="status" data-tone="neutral" hidden></span>
+                        </div>
+                        <h3>Respiratory Rate</h3>
+                        <div class="metric-reading">
+                            <span class="metric-value" data-role="value">—</span>
+                            <span class="metric-unit" data-role="unit">breaths/min</span>
+                            <span class="metric-tag" data-role="tag" hidden></span>
+                        </div>
+                        <div class="metric-comparison" data-role="comparison">
+                            <span class="comparison-label" data-role="comparison-label">Baseline:</span>
+                            <span class="comparison-value" data-role="comparison-value">—</span>
+                            <span class="comparison-change" data-role="comparison-change" hidden></span>
+                        </div>
+                        <div class="metric-visualization"></div>
+                    </article>
+                    <article class="card metric-card" data-metric="bloodPressure">
+                        <div class="metric-card-header">
+                            <span class="metric-icon"></span>
+                            <span class="metric-label">CARDIOVASCULAR</span>
+                            <span class="pill metric-status" data-role="status" data-tone="neutral" hidden></span>
+                        </div>
+                        <h3>Blood Pressure</h3>
+                        <div class="metric-reading">
+                            <span class="metric-value" data-role="value">—</span>
+                            <span class="metric-unit" data-role="unit">mmHg</span>
+                            <span class="metric-tag" data-role="tag" hidden></span>
+                        </div>
+                        <div class="metric-comparison" data-role="comparison">
+                            <span class="comparison-label" data-role="comparison-label">Baseline:</span>
+                            <span class="comparison-value" data-role="comparison-value">—</span>
+                            <span class="comparison-change" data-role="comparison-change" hidden></span>
+                        </div>
+                        <div class="metric-visualization"></div>
+                    </article>
+                    <article class="card metric-card" data-metric="bloodGlucose">
+                        <div class="metric-card-header">
+                            <span class="metric-icon"></span>
+                            <span class="metric-label">METABOLIC</span>
+                            <span class="pill metric-status" data-role="status" data-tone="neutral" hidden></span>
+                        </div>
+                        <h3>Blood Glucose</h3>
+                        <div class="metric-reading">
+                            <span class="metric-value" data-role="value">—</span>
+                            <span class="metric-unit" data-role="unit">mg/dL</span>
+                            <span class="metric-tag" data-role="tag" hidden></span>
+                        </div>
+                        <div class="metric-comparison" data-role="comparison">
+                            <span class="comparison-label" data-role="comparison-label">Baseline:</span>
+                            <span class="comparison-value" data-role="comparison-value">—</span>
+                            <span class="comparison-change" data-role="comparison-change" hidden></span>
+                        </div>
+                        <div class="metric-visualization"></div>
+                    </article>
+                    <article class="card metric-card" data-metric="oxygenSaturation">
+                        <div class="metric-card-header">
+                            <span class="metric-icon"></span>
+                            <span class="metric-label">OXYGEN SATURATION</span>
+                            <span class="pill metric-status" data-role="status" data-tone="neutral" hidden></span>
+                        </div>
+                        <h3>Blood Oxygen</h3>
+                        <div class="metric-reading">
+                            <span class="metric-value" data-role="value">—</span>
+                            <span class="metric-unit" data-role="unit">%</span>
+                            <span class="metric-tag" data-role="tag" hidden></span>
+                        </div>
+                        <div class="metric-comparison" data-role="comparison">
+                            <span class="comparison-label" data-role="comparison-label">Baseline:</span>
+                            <span class="comparison-value" data-role="comparison-value">—</span>
+                            <span class="comparison-change" data-role="comparison-change" hidden></span>
+                        </div>
+                        <div class="metric-visualization"></div>
+                    </article>
+                    <article class="card metric-card" data-metric="skinTemperature">
+                        <div class="metric-card-header">
+                            <span class="metric-icon"></span>
+                            <span class="metric-label">THERMOREGULATION</span>
+                            <span class="pill metric-status" data-role="status" data-tone="neutral" hidden></span>
+                        </div>
+                        <h3>Skin Temperature</h3>
+                        <div class="metric-reading">
+                            <span class="metric-value" data-role="value">—</span>
+                            <span class="metric-unit" data-role="unit">°C</span>
+                            <span class="metric-tag" data-role="tag" hidden></span>
+                        </div>
+                        <div class="metric-comparison" data-role="comparison">
+                            <span class="comparison-label" data-role="comparison-label">Baseline:</span>
+                            <span class="comparison-value" data-role="comparison-value">—</span>
+                            <span class="comparison-change" data-role="comparison-change" hidden></span>
+                        </div>
+                        <div class="metric-visualization"></div>
+                    </article>
+
+                </div>
+
+                <p class="empty-note" id="no-readings" hidden>No readings yet for this astronaut.</p>
+
+            </section>
+
+
+            <!-- Live stream of incoming readings -->
+            <section class="stream-section">
+
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">LIVE STREAM</p>
+                        <h2>Incoming readings</h2>
+                        <p class="section-header__note">One reading every 5 seconds. Each one is saved and added to today's average.</p>
+                    </div>
+
+                    <button class="stream-button" id="export-csv" type="button">Download readings (CSV)</button>
+                </div>
+
+                <div class="card stream-card">
+                    <div class="table-scroll">
+                        <table class="stream-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Heart rate</th>
+                                    <th>Resp. rate</th>
+                                    <th>SpO₂</th>
+                                    <th>Blood pressure</th>
+                                    <th>Glucose</th>
+                                    <th>Skin temp.</th>
+                                    <th>Activity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stream-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Health interpretation -->
+            <section class="interpretation-section">
+
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">SYSTEM ANALYSIS</p>
+                        <h2>Why this status?</h2>
+                    </div>
+                </div>
+
+                <div class="card interpretation-card">
+                    <span class="interpretation-icon"></span>
+
+                    <div class="interpretation-content" id="interpretation">
+                        <h3 id="interpretation-title">Waiting for data</h3>
+                        <p>The explanation will appear when the first reading arrives.</p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Continuous monitoring -->
+            <section class="monitoring-note">
+                <span class="monitoring-note-icon"></span>
+
+                <div class="monitoring-note-content">
+                    <h2>Continuous Health Monitoring</h2>
+                    <p>
+                        Your health metrics are continuously monitored
+                        and compared against your personal baseline.
+                        Sustained deviations may trigger an alert
+                        requiring further attention.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer class="container">
+        <div class="site-footer">
+            <p>AstroVital | Astronaut Health Monitoring System</p>
+            <p>Mission Day <span id="footer-mission-day">—</span></p>
+        </div>
+    </footer>
+
+    <p class="prototype-note container">Prototype · readings are stored on the backend against your crew account · thresholds are prototype rules, not medical limits. Heart rate and skin temperature go beyond the proposal; their ranges are provisional, based on published ISS research.</p>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/overview.js" defer></script>
+</body>
+</html>

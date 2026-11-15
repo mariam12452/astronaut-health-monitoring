@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Monitor and explore astronaut physiological health trends.">
+    <title>Health Trends | AstroVital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/pages/trends.css">
+</head>
+<body>
+
+    <!-- Navbar is built by js/navbar.js -->
+    <header class="site-navbar" id="site-navbar"></header>
+
+    <main class="container trends-main">
+
+        <!-- Page header -->
+        <section class="trends-header">
+            <div class="trends-header-content">
+                <span class="eyebrow eyebrow--accent">HEALTH ANALYTICS</span>
+                <h1>Health Trends</h1>
+                <p>
+                    Explore 7-day and 30-day patterns without confusing
+                    daily averages with resting baselines.
+                </p>
+            </div>
+
+            <div class="period-selector" role="group" aria-label="Chart time period">
+                <button class="period-button active" data-period="7" aria-pressed="true">7 days</button>
+                <button class="period-button" data-period="30" aria-pressed="false">30 days</button>
+            </div>
+        </section>
+
+
+        <!-- Charts (drawn by js/health-trends.js) -->
+        <section class="trends-section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Physiological Overview</h2>
+                    <p class="section-header__note">Changes in physiological measurements over time.</p>
+                </div>
+
+                <span class="trends-live">
+                    <span class="pill" data-tone="accent" id="period-indicator">Last 7 days</span>
+                    <span class="live-note" id="trends-updated">Daily averages update as readings arrive</span>
+                </span>
+            </div>
+
+            <div class="metrics-grid">
+
+                <article class="card metric-card" data-metric="heartRate">
+                    <div class="metric-card-header">
+                        <div>
+                            <span class="metric-category">CARDIOVASCULAR</span>
+                            <h3>Heart Rate</h3>
+                            <p>Beats per minute (bpm)</p>
+                        </div>
+                        <span class="metric-symbol" aria-hidden="true">♡</span>
+                    </div>
+
+                    <div class="chart-container"></div>
+
+                    <div class="chart-caption">
+                        <span>Daily averages</span>
+                        <span data-role="caption">Loading…</span>
+                    </div>
+                </article>
+
+                <article class="card metric-card" data-metric="respiratoryRate">
+                    <div class="metric-card-header">
+                        <div>
+                            <span class="metric-category">RESPIRATORY</span>
+                            <h3>Respiratory Rate</h3>
+                            <p>Breaths per minute</p>
+                        </div>
+                        <span class="metric-symbol" aria-hidden="true">〰</span>
+                    </div>
+
+                    <div class="chart-container"></div>
+
+                    <div class="chart-caption">
+                        <span>Daily averages</span>
+                        <span data-role="caption">Loading…</span>
+                    </div>
+                </article>
+
+                <article class="card metric-card" data-metric="bloodPressure">
+                    <div class="metric-card-header">
+                        <div>
+                            <span class="metric-category">CARDIOVASCULAR</span>
+                            <h3>Blood Pressure</h3>
+                            <p>Systolic pressure (mmHg)</p>
+                        </div>
+                        <span class="metric-symbol" aria-hidden="true">⌁</span>
+                    </div>
+
+                    <div class="chart-container"></div>
+
+                    <div class="chart-caption">
+                        <span>Daily averages</span>
+                        <span data-role="caption">Loading…</span>
+                    </div>
+                </article>
+
+                <article class="card metric-card" data-metric="bloodGlucose">
+                    <div class="metric-card-header">
+                        <div>
+                            <span class="metric-category">METABOLIC</span>
+                            <h3>Blood Glucose</h3>
+                            <p>Milligrams per decilitre (mg/dL)</p>
+                        </div>
+                        <span class="metric-symbol" aria-hidden="true">◈</span>
+                    </div>
+
+                    <div class="chart-container"></div>
+
+                    <div class="chart-caption">
+                        <span>Daily averages</span>
+                        <span data-role="caption">Loading…</span>
+                    </div>
+                </article>
+
+                <article class="card metric-card" data-metric="skinTemperature">
+                    <div class="metric-card-header">
+                        <div>
+                            <span class="metric-category">THERMOREGULATION</span>
+                            <h3>Skin Temperature</h3>
+                            <p>Degrees Celsius (°C)</p>
+                        </div>
+                        <span class="metric-symbol" aria-hidden="true">♨</span>
+                    </div>
+
+                    <div class="chart-container"></div>
+
+                    <div class="chart-caption">
+                        <span>Daily averages</span>
+                        <span data-role="caption">Loading…</span>
+                    </div>
+                </article>
+
+                <article class="card metric-card" data-metric="oxygenSaturation">
+                    <div class="metric-card-header">
+                        <div>
+                            <span class="metric-category">OXYGENATION</span>
+                            <h3>Oxygen Saturation</h3>
+                            <p>Blood oxygen level (%)</p>
+                        </div>
+                        <span class="metric-symbol" aria-hidden="true">◉</span>
+                    </div>
+
+                    <div class="chart-container"></div>
+
+                    <div class="chart-caption">
+                        <span>Daily averages</span>
+                        <span data-role="caption">Loading…</span>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Scheduled ultrasound scans (from the backend) -->
+        <section class="trends-section" id="ultrasound-section" hidden>
+            <div class="section-header">
+                <div>
+                    <h2>Ultrasound Scans</h2>
+                    <p class="section-header__note">Scheduled manual scans. Not continuous readings.</p>
+                </div>
+            </div>
+
+            <div class="card ultrasound-card">
+                <div class="table-scroll">
+                    <table class="ultrasound-table">
+                        <thead>
+                            <tr>
+                                <th>Scan</th>
+                                <th>Status</th>
+                                <th>IJV flow grade</th>
+                                <th>IJV area (mm²)</th>
+                                <th>ONSD (mm) · baseline</th>
+                                <th>cIMT (mm)</th>
+                                <th>LVEF (%)</th>
+                                <th>Muscle loss (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ultrasound-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Data interpretation -->
+        <section class="interpretation-panel">
+
+            <div class="interpretation-symbol" aria-hidden="true">i</div>
+
+            <div class="interpretation-content">
+                <span class="eyebrow eyebrow--accent">DATA INTERPRETATION</span>
+                <h2>Understanding Your Health Trends</h2>
+
+                <p>
+                    Daily averages may combine measurements taken during
+                    different activity states. These charts provide an
+                    overview of physiological changes over time.
+                    Deviation alerts, however, rely on comparable
+                    measurements and verified personal baseline statistics.
+                </p>
+
+                <div class="interpretation-details">
+                    <div>
+                        <span class="interpretation-dot"></span>
+                        <p><strong>Health trends:</strong> Show changes in daily measurements over time.</p>
+                    </div>
+
+                    <div>
+                        <span class="interpretation-dot"></span>
+                        <p><strong>Personal baseline:</strong> Represents an astronaut's established physiological reference measurements.</p>
+                    </div>
+
+                    <div>
+                        <span class="interpretation-dot"></span>
+                        <p><strong>Deviation alerts:</strong> Identify sustained deviations from the astronaut's personal baseline.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="container">
+        <div class="site-footer">
+            <p>AstroVital · Astronaut Health Monitoring System</p>
+            <span>Prototype · synthetic data</span>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/health-trends.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "functions": { "api/index.js": { "maxDuration": 300, "includeFiles": "protected/**" } },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/health", "destination": "/api/index" },
+    { "source": "/index.html", "destination": "/api/index" },
+    { "source": "/health-trends.html", "destination": "/api/index" },
+    { "source": "/profile.html", "destination": "/api/index" },
+    { "source": "/connection.html", "destination": "/api/index" },
+    { "source": "/app", "destination": "/api/index" },
+    { "source": "/", "destination": "/login.html" }
+  ]
+}

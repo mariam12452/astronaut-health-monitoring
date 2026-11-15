@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Verified astronaut identity and personal pre-flight baseline reference.">
+    <title>Astronaut Profile | AstroVital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/pages/profile.css">
+</head>
+<body>
+
+    <!-- Navbar is built by js/navbar.js -->
+    <header class="site-navbar" id="site-navbar"></header>
+
+    <main class="container profile-main">
+
+        <div class="profile-topline">
+            <p class="eyebrow" id="mission-context">MISSION / CREW INFORMATION</p>
+
+            <span class="pill" id="profile-connection-status" data-tone="neutral">
+                <span class="status-indicator"></span>
+                <span id="connection-status-text">Checking profile service</span>
+            </span>
+        </div>
+
+        <section class="page-heading" aria-labelledby="page-title">
+            <div>
+                <p class="eyebrow">CREW RECORD</p>
+                <h1 id="page-title">Astronaut Profile</h1>
+                <p class="page-description">Verified identity and individual pre-flight baseline reference.</p>
+            </div>
+
+            <button class="refresh-button" id="refresh-profile" type="button">
+                <span aria-hidden="true">↻</span> Refresh profile
+            </button>
+        </section>
+
+
+        <!-- Identity -->
+        <section class="card identity-card" aria-labelledby="identity-heading">
+            <div class="avatar" id="astronaut-avatar" aria-hidden="true">—</div>
+
+            <div class="identity-copy">
+                <p class="eyebrow" id="crew-number">ASTRONAUT PROFILE</p>
+                <h2 id="identity-heading">Loading astronaut identity…</h2>
+                <p class="identity-description" id="identity-description">
+                    Profile information will appear when an astronaut session is selected.
+                </p>
+
+                <div class="identity-badges">
+                    <span class="pill" id="baseline-approval-badge" data-tone="neutral">
+                        <span class="status-indicator"></span>
+                        <span>Baseline status unavailable</span>
+                    </span>
+
+                    <span class="pill" id="device-link-badge" data-tone="neutral">
+                        <span class="status-indicator"></span>
+                        <span>Device status unavailable</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="identity-aside">
+                <span class="aside-label">MISSION</span>
+                <strong id="identity-mission">—</strong>
+                <span class="aside-label">ASTRONAUT ID</span>
+                <strong id="identity-id">—</strong>
+            </div>
+        </section>
+
+
+        <!-- Baseline statistics -->
+        <section class="baseline-section" aria-labelledby="baseline-heading">
+
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">PRE-FLIGHT REFERENCE</p>
+                    <h2 id="baseline-heading">Personal baseline statistics</h2>
+                </div>
+
+                <span class="baseline-meta" id="baseline-meta">Awaiting baseline data</span>
+            </div>
+
+            <div class="baseline-grid" id="baseline-grid" aria-live="polite">
+
+            <article class="card baseline-card" data-metric="heartRate">
+                <div class="baseline-card-top">
+                    <h3>Resting heart rate</h3>
+                    <span class="metric-symbol" aria-hidden="true">♡</span>
+                </div>
+                <p class="baseline-value" data-value>—</p>
+                <p class="baseline-sd" data-sd>Standard deviation: —</p>
+                <p class="baseline-footnote" data-note>Waiting for approved reference</p>
+            </article>
+
+            <article class="card baseline-card" data-metric="respiratoryRate">
+                <div class="baseline-card-top">
+                    <h3>Respiratory rate</h3>
+                    <span class="metric-symbol" aria-hidden="true">⌁</span>
+                </div>
+                <p class="baseline-value" data-value>—</p>
+                <p class="baseline-sd" data-sd>Standard deviation: —</p>
+                <p class="baseline-footnote" data-note>Waiting for approved reference</p>
+            </article>
+
+            <article class="card baseline-card" data-metric="bloodPressure">
+                <div class="baseline-card-top">
+                    <h3>Blood pressure</h3>
+                    <span class="metric-symbol" aria-hidden="true">⌖</span>
+                </div>
+                <p class="baseline-value" data-value>—</p>
+                <p class="baseline-sd" data-sd>Standard deviation: —</p>
+                <p class="baseline-footnote" data-note>Waiting for approved reference</p>
+            </article>
+
+            <article class="card baseline-card" data-metric="skinTemperature">
+                <div class="baseline-card-top">
+                    <h3>Skin temperature</h3>
+                    <span class="metric-symbol" aria-hidden="true">♨</span>
+                </div>
+                <p class="baseline-value" data-value>—</p>
+                <p class="baseline-sd" data-sd>Standard deviation: —</p>
+                <p class="baseline-footnote" data-note>Waiting for approved reference</p>
+            </article>
+
+            <article class="card baseline-card" data-metric="oxygenSaturation">
+                <div class="baseline-card-top">
+                    <h3>Oxygen saturation</h3>
+                    <span class="metric-symbol" aria-hidden="true">◉</span>
+                </div>
+                <p class="baseline-value" data-value>—</p>
+                <p class="baseline-sd" data-sd>Standard deviation: —</p>
+                <p class="baseline-footnote" data-note>Waiting for approved reference</p>
+            </article>
+
+            </div>
+
+            <div class="baseline-empty" id="baseline-empty" hidden>
+                <span class="empty-icon" aria-hidden="true">⌁</span>
+                <div>
+                    <strong>Baseline data is not available yet</strong>
+                    <p>Approved personal baseline statistics will appear here once supplied by the AstroVital backend.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <aside class="card baseline-method-card">
+            <div class="method-icon" aria-hidden="true">i</div>
+            <div>
+                <h2>How baselines are established</h2>
+                <p id="baseline-method-description">
+                    Baselines are derived from repeated, standardised resting measurements
+                    collected before flight. The approved mean and standard deviation are
+                    stored separately from in-flight trend data.
+                </p>
+            </div>
+        </aside>
+
+        <section class="card security-card" id="security-card" aria-labelledby="security-title">
+            <h2 id="security-title">Sign-in security</h2>
+            <p class="security-lead">Register this device's fingerprint or face unlock as a passkey, so you can verify your identity biometrically instead of typing your passcode.</p>
+            <ul class="security-list" id="passkey-list"><li>Loading…</li></ul>
+            <div class="security-actions">
+                <button type="button" class="security-button" id="passkey-add">Add fingerprint / face on this device</button>
+            </div>
+            <details class="security-passcode">
+                <summary>Change passcode</summary>
+                <form id="passcode-form" novalidate>
+                    <input id="pc-current" type="password" autocomplete="current-password" placeholder="Current passcode" aria-label="Current passcode">
+                    <input id="pc-new" type="password" autocomplete="new-password" placeholder="New passcode (10+ characters, letters and digits)" aria-label="New passcode">
+                    <button type="submit" class="security-button">Update passcode</button>
+                </form>
+            </details>
+            <p class="security-message" id="security-message" role="status" hidden></p>
+            <h3 class="security-sub">Recent account activity</h3>
+            <ul class="security-list security-list--small" id="activity-list"><li>Loading…</li></ul>
+        </section>
+
+        <div class="profile-message" id="profile-message" role="status" aria-live="polite" hidden></div>
+
+        <div class="site-footer">
+            <span>AstroVital · MISSION HEALTH SYSTEM</span>
+            <span id="profile-last-updated">Profile data has not been loaded</span>
+        </div>
+
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/security.js" defer></script>
+</body>
+</html>

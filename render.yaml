@@ -1,0 +1,45 @@
+# Render Blueprint for HACKBIO v3. One web service: the Express API plus the web pages (same address, so sign-in cookies just work).
+# The database is your Neon Postgres. Render will ask you for DATABASE_URL (paste the Neon POOLED connection string).
+services:
+  - type: web
+    name: hackbio-v3
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm run render:build
+    # Creates the tables and demo accounts on the first start (safe to repeat), then starts the server.
+    startCommand: npm run render:start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false          # paste your Neon pooled connection string in the Render dashboard
+      - key: COOKIE_SECURE
+        value: "true"
+      # Must match the address in the browser. If Render gives you a different URL than
+      # https://hackbio-v3.onrender.com, change these two to it (Environment tab) and redeploy.
+      - key: WEBAUTHN_RP_ID
+        value: hackbio-v3.onrender.com
+      - key: WEBAUTHN_ORIGIN
+        value: https://hackbio-v3.onrender.com
+      - key: FRONTEND_DIR
+        value: ../frontend
+      - key: SIM_ENABLED
+        value: "true"
+      - key: BACKFILL_ON_START
+        value: "true"
+      - key: SIM_DEMO_EPISODES
+        value: "false"
+      - key: PERSISTENCE_RESP_RATE_MIN
+        value: "30"
+      - key: PERSISTENCE_SPO2_MIN
+        value: "30"
+      - key: PERSISTENCE_SBP_MIN
+        value: "60"
+      - key: GAP_MINUTES
+        value: "10"
+      - key: CONNECTED_WITHIN_MIN
+        value: "15"
+      - key: DEVICE_API_KEY
+        generateValue: true

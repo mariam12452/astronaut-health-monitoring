@@ -1,0 +1,195 @@
+/* =========================================
+   SHARED COMPONENTS
+   Small building blocks reused by several pages.
+========================================= */
+
+/* Card surface. Pages add their own padding and spacing. */
+
+.card {
+    background-color: var(--color-surface);
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--radius-card);
+}
+
+
+/* Small colored dot, takes the color of the text around it. */
+
+.status-indicator {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+
+/* Small uppercase label above a heading. */
+
+.eyebrow {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--color-text-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.075rem;
+}
+
+.eyebrow--accent {
+    color: var(--color-secondary);
+}
+
+
+/* Status pill. Pick the look with data-tone (default is success). */
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.pill[data-tone="accent"] {
+    background-color: var(--color-surface-soft);
+    color: var(--color-secondary);
+}
+
+.pill[data-tone="neutral"] {
+    background-color: var(--color-neutral-soft);
+    color: var(--color-text-muted);
+}
+
+.pill[data-tone="warning"] {
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning);
+}
+
+
+/* Section heading row: title on the left, optional status on the right. */
+
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+.section-header h2 {
+    color: var(--color-primary);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 700;
+}
+
+.section-header__note {
+    margin-top: 0.25rem;
+    color: var(--color-text-subtle);
+    font-size: 0.85rem;
+}
+
+
+/* Footer line. Wrap it in <footer class="container">. */
+
+.site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding-block: 1.25rem;
+    border-top: 0.0625rem solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+
+/* ---------- Added for backend integration ---------- */
+
+/* Red tone for ATTENTION. */
+.pill[data-tone="danger"] {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+/* Banner for offline / not-found messages, placed at the top of <main>. */
+.status-banner {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-control);
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.status-banner[data-tone="danger"] {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+.status-banner[hidden] {
+    display: none;
+}
+
+/* Full-page empty / error state. */
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+}
+
+.empty-state h2 {
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.empty-state a {
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+/* A metric that this system does not measure. */
+.metric-card[data-unavailable="true"] {
+    opacity: 0.6;
+}
+
+.metric-card[data-unavailable="true"] .metric-value {
+    color: var(--color-text-muted);
+}
+
+/* Small status pill inside a card. */
+.metric-status {
+    margin-left: auto;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.6875rem;
+}
+
+.metric-tag {
+    margin-left: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface-soft);
+    color: var(--color-secondary);
+    font-size: 0.6875rem;
+    font-weight: 700;
+}
+
+
+/* ---------- Live stream ---------- */
+
+@keyframes live-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.55); }
+    70%  { box-shadow: 0 0 0 0.5rem rgba(61, 220, 151, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0); }
+}
+
+.is-live .status-indicator {
+    animation: live-pulse 1.6s ease-out infinite;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}

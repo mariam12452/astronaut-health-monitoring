@@ -1,0 +1,439 @@
+/* =========================================
+   HEALTH TRENDS PAGE (health-trends.html)
+========================================= */
+
+.trends-main {
+    padding-block: 2.5rem;
+}
+
+/* Page-only colors that are not shared design tokens. */
+.trends-main {
+    --chart-bar: #2FD3E6;
+    --chart-label: #86AEB9;
+    --panel-bg: #0B2A3C;
+    --panel-border: #12394B;
+    --panel-icon-bg: #0F3A4D;
+}
+
+
+/* Page header */
+
+.trends-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.trends-header-content {
+    max-width: 45rem;
+}
+
+.trends-header .eyebrow {
+    margin-bottom: 0.65rem;
+}
+
+.trends-header h1 {
+    margin-bottom: 0.65rem;
+    color: var(--color-primary);
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 700;
+}
+
+.trends-header-content > p {
+    max-width: 40rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+
+/* Period selector (7 / 30 days) */
+
+.period-selector {
+    display: flex;
+    flex-shrink: 0;
+    gap: 0.35rem;
+    padding: 0.35rem;
+    border-radius: 0.7rem;
+    background: var(--color-surface-soft);
+}
+
+.period-button {
+    padding: 0.7rem 1.1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.period-button:hover {
+    color: var(--color-primary);
+}
+
+.period-button.active {
+    background: var(--color-surface);
+    color: var(--color-primary);
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.4);
+}
+
+
+/* Trends section */
+
+.trends-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.metric-card {
+    min-width: 0;
+    padding: 1.5rem;
+    box-shadow: 0 0.25rem 1.2rem rgba(0, 0, 0, 0.3);
+}
+
+.metric-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.metric-category {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-secondary);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.09rem;
+}
+
+.metric-card-header h3 {
+    margin-bottom: 0.3rem;
+    color: var(--color-primary);
+    font-size: 1.05rem;
+}
+
+.metric-card-header p {
+    color: var(--color-text-subtle);
+    font-size: 0.75rem;
+}
+
+.metric-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface-soft);
+    color: var(--color-secondary);
+    font-size: 1.35rem;
+}
+
+
+/* Bar chart (columns are built by js/health-trends.js) */
+
+.chart-container {
+    display: grid;
+    grid-template-columns: repeat(var(--chart-count, 7), minmax(0, 1fr));
+    align-items: end;
+    gap: clamp(0.15rem, 0.7vw, 0.55rem);
+    height: 12rem;
+    padding-top: 0.75rem;
+    border-bottom: 0.0625rem solid var(--color-border-soft);
+    overflow: hidden;
+}
+
+.chart-column {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    justify-items: center;
+    align-items: end;
+    gap: 0.5rem;
+    min-width: 0;
+    height: 100%;
+}
+
+.chart-bar-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+.chart-bar {
+    width: 85%;
+    height: var(--bar-height);
+    min-height: 0.25rem;
+    border-radius: 0.3rem 0.3rem 0 0;
+    background: var(--chart-bar);
+    transition: height 0.35s ease, background 0.2s ease;
+}
+
+.chart-bar:hover {
+    background: var(--color-secondary);
+}
+
+.chart-label {
+    min-height: 0.85rem;
+    color: var(--chart-label);
+    font-size: 0.62rem;
+    white-space: nowrap;
+}
+
+.chart-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: var(--chart-label);
+    font-size: 0.68rem;
+}
+
+
+/* Data interpretation panel */
+
+.interpretation-panel {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    padding: 1.7rem;
+    border: 0.0625rem solid var(--panel-border);
+    border-radius: var(--radius-card);
+    background: var(--panel-bg);
+}
+
+.interpretation-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    background: var(--panel-icon-bg);
+    color: var(--color-success);
+    font-weight: 700;
+}
+
+.interpretation-content {
+    min-width: 0;
+}
+
+.interpretation-content h2 {
+    margin-bottom: 0.7rem;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+}
+
+.interpretation-content > p {
+    max-width: 65rem;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.interpretation-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+}
+
+.interpretation-details > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+}
+
+.interpretation-dot {
+    flex-shrink: 0;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-top: 0.4rem;
+    border-radius: 50%;
+    background: var(--color-secondary);
+}
+
+.interpretation-details p {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+.interpretation-details strong {
+    color: #9FD9E2;
+}
+
+
+/* Tablet */
+
+@media (max-width: 64rem) {
+    .metric-card {
+        padding: 1.25rem;
+    }
+
+    .chart-container {
+        height: 10rem;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 48rem) {
+    .trends-main {
+        padding-block: 2rem;
+    }
+
+    .trends-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.3rem;
+    }
+
+    .period-selector {
+        width: 100%;
+    }
+
+    .period-button {
+        flex: 1;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+        height: 11rem;
+        gap: 0.35rem;
+    }
+
+    .interpretation-panel {
+        padding: 1.2rem;
+    }
+}
+
+
+/* Small mobile */
+
+@media (max-width: 30rem) {
+    .trends-main {
+        padding-block: 1.5rem;
+    }
+
+    .metric-card-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .chart-container {
+        gap: 0.2rem;
+    }
+
+    .chart-label {
+        font-size: 0.55rem;
+    }
+
+    .chart-caption {
+        font-size: 0.62rem;
+    }
+
+    .interpretation-panel {
+        gap: 0.8rem;
+    }
+}
+
+
+/* ---------- Added for backend integration ---------- */
+
+.chart-empty {
+    display: grid;
+    place-items: center;
+    grid-column: 1 / -1;
+    min-height: 8rem;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.chart-bar[data-status="WATCH"] {
+    background: var(--color-warning);
+}
+
+.chart-bar[data-status="ATTENTION"] {
+    background: var(--color-danger);
+}
+
+.chart-container[data-state] {
+    display: grid;
+}
+
+.ultrasound-card {
+    padding: 0.5rem 1rem;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.ultrasound-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+}
+
+.ultrasound-table th,
+.ultrasound-table td {
+    padding: 0.625rem 0.5rem;
+    border-bottom: 0.0625rem solid var(--color-border-soft);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.ultrasound-table th {
+    color: var(--color-text-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+}
+
+.ultrasound-table td {
+    color: var(--color-primary);
+}
+
+.trends-section[hidden] {
+    display: none;
+}
+
+
+/* ---------- Live note ---------- */
+
+.trends-live {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.live-note {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}

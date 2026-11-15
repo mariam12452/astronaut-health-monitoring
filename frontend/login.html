@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroVital · Crew sign-in</title>
+    <meta name="description" content="Verify your identity to open your personal health monitoring record.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages/login.css">
+</head>
+<body class="login-body">
+
+    <main class="login-shell">
+        <header class="login-brand">
+            <span class="login-mark" aria-hidden="true"></span>
+            <span class="login-name">AstroVital</span>
+        </header>
+
+        <section class="card login-card" id="step-identity" aria-labelledby="login-title">
+            <p class="eyebrow">STEP 1 OF 2 · IDENTITY</p>
+            <h1 id="login-title">Verify your identity</h1>
+            <p class="login-lead">Your readings, baseline and trends are stored against your own crew account. Sign in to open them.</p>
+
+            <p class="login-demo">Demo access for judges: Crew A01 is filled in below. Just press Sign in, then Verify device.</p>
+
+            <form id="login-form" autocomplete="on" novalidate>
+                <label class="login-field">
+                    <span>Crew ID</span>
+                    <input id="login-id" name="username" type="text" inputmode="text" autocomplete="username" placeholder="e.g. A01" value="A01" required>
+                </label>
+                <label class="login-field">
+                    <span>Passcode</span>
+                    <input id="login-pass" name="password" type="password" autocomplete="current-password" placeholder="Your passcode" value="Artemis-A01-2026" required>
+                </label>
+                <p class="login-error" id="login-error" role="alert" hidden></p>
+                <button class="login-button" id="login-submit" type="submit">Sign in</button>
+            </form>
+
+            <div class="login-divider"><span>or</span></div>
+            <button class="login-button login-button--ghost" id="login-passkey" type="button">
+                Use fingerprint / face (this device)
+            </button>
+            <p class="login-hint" id="passkey-hint">Enter your Crew ID first. A passkey must be registered once from your profile page.</p>
+        </section>
+
+        <section class="card login-card" id="step-monitor" aria-labelledby="monitor-title" hidden>
+            <p class="eyebrow">STEP 2 OF 2 · BIO-MONITOR</p>
+            <h1 id="monitor-title">Pair your Bio-Monitor</h1>
+            <p class="login-lead" id="monitor-lead">Signed in. Enter the pairing code printed on your Bio-Monitor so the system can confirm the device is yours before any readings are accepted.</p>
+
+            <form id="monitor-form" novalidate>
+                <label class="login-field">
+                    <span>Pairing code</span>
+                    <input id="monitor-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. A01-PAIR-0000" value="A01-PAIR-7391">
+                </label>
+                <p class="login-error" id="monitor-error" role="alert" hidden></p>
+                <button class="login-button" type="submit">Verify device and start monitoring</button>
+            </form>
+            <button class="login-link" id="monitor-skip" type="button">Continue without a device (view stored data only)</button>
+        </section>
+
+        <p class="login-foot">Prototype · synthetic data. Sessions end after 2 hours, or 15 minutes of inactivity; after that every page asks you to sign in again. Five wrong passcodes lock the account for 15 minutes.</p>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

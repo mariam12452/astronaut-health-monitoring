@@ -1,0 +1,336 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Sex {
+  M
+  F
+}
+
+enum Source {
+  bio_monitor
+  glucose_sensor
+  manual_entry
+  mock
+}
+
+enum ActivityLevel {
+  low
+  moderate
+  high
+}
+
+enum SignalQuality {
+  OK
+  LOW
+  ARTIFACT
+}
+
+enum HealthStatus {
+  NORMAL
+  WATCH
+  ATTENTION
+}
+
+enum TestCondition {
+  normal_earth
+  head_down_tilt
+  dry_immersion
+  raised_co2
+  reduced_pressure
+}
+
+enum UltrasoundCondition {
+  normal_earth
+  spaceflight
+}
+
+// Parameters that have a personal baseline from pre-flight sessions.
+enum BaselineParameter {
+  resp_rate_bpm
+  spo2_pct
+  sbp_mmhg
+  dbp_mmhg
+}
+
+// Continuously streamed parameters that get a stored daily average.
+enum StreamParameter {
+  resp_rate_bpm
+  spo2_pct
+  sbp_mmhg
+  dbp_mmhg
+  glucose_mgdl
+  hr_bpm
+  skin_temp_c
+}
+
+model Astronaut {
+  id          String   @id
+  sex         Sex
+  launchDay   Int
+  displayName String
+  crewNumber  String
+  missionName String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  readings         Reading[]
+  baselineSessions BaselineSession[]
+  baselineStats    BaselineStat[]
+  ultrasoundScans  UltrasoundScan[]
+  dailyAverages    DailyAverage[]
+  dataGaps         DataGap[]
+  user             User?
+  devices          BioMonitorDevice[]
+  monitorSessions  MonitoringSession[]
+
+  @@map("astronauts")
+}
+
+model Reading {
+  id            Int           @id @default(autoincrement())
+  timestampUtc  DateTime
+  astronautId   String
+  sessionId     String
+  source        Source
+  inFlight      Boolean
+  activityLevel ActivityLevel
+  respRateBpm   Float?
+  spo2Pct       Float?
+  sbpMmhg       Float?
+  dbpMmhg       Float?
+  glucoseMgdl   Float?
+  hrBpm         Float?
+  skinTempC     Float?
+  fasting       Boolean?
+  signalQuality SignalQuality
+  missionDay    Int?
+  scenarioTag   String?
+  // Null for ARTIFACT records: stored but never evaluated.
+  status        HealthStatus?
+  evaluation    Json?
+  explanation   String?
+  createdAt     DateTime      @default(now())
+
+  astronaut Astronaut @relation(fields: [astronautId], references: [id])
+
+  @@unique([timestampUtc, astronautId, source])
+  @@index([astronautId, timestampUtc])
+  @@map("readings")
+}
+
+model BaselineSession {
+  sessionId       String        @id
+  astronautId     String
+  sessionStartUtc DateTime
+  testCondition   TestCondition
+  context         String
+  durationMin     Int
+  respRateBpm     Float?
+  spo2Pct         Float?
+  sbpMmhg         Float?
+  dbpMmhg         Float?
+  nBpReadings     Int?
+  valid           Boolean
+  invalidReason   String?
+
+  astronaut Astronaut @relation(fields: [astronautId], references: [id])
+
+  @@index([astronautId, testCondition])
+  @@map("baseline_sessions")
+}
+
+model BaselineStat {
+  id            Int               @id @default(autoincrement())
+  astronautId   String
+  testCondition TestCondition
+  parameter     BaselineParameter
+  mean          Float
+  // Null when n < 2: a sample SD needs at least two sessions.
+  sd            Float?
+  n             Int
+  provisional   Boolean
+  collectedFrom DateTime
+  collectedTo   DateTime
+  computedAt    DateTime          @default(now())
+
+  astronaut Astronaut @relation(fields: [astronautId], references: [id])
+
+  @@unique([astronautId, testCondition, parameter])
+  @@map("baseline_stats")
+}
+
+model UltrasoundScan {
+  id                Int                 @id @default(autoincrement())
+  timestampUtc      DateTime
+  astronautId       String
+  source            Source
+  inFlight          Boolean
+  condition         UltrasoundCondition
+  missionDay        Int?
+  ijvAreaMm2        Float?
+  ijvFlowGrade      Int?
+  onsdMm            Float?
+  cimtMm            Float?
+  lvefPct           Float?
+  muscleThicknessMm Float?
+  muscleLossPct     Float?
+  status            HealthStatus
+  explanation       String
+  scenarioTag       String?
+  createdAt         DateTime            @default(now())
+
+  astronaut Astronaut @relation(fields: [astronautId], references: [id])
+
+  @@unique([astronautId, timestampUtc])
+  @@map("ultrasound_scans")
+}
+
+model DailyAverage {
+  astronautId String
+  date        DateTime        @db.Date
+  parameter   StreamParameter
+  sum         Float
+  count       Int
+  missionDay  Int?
+
+  astronaut Astronaut @relation(fields: [astronautId], references: [id])
+
+  @@id([astronautId, date, parameter])
+  @@map("daily_averages")
+}
+
+model DataGap {
+  id          Int      @id @default(autoincrement())
+  astronautId String
+  source      Source
+  gapStart    DateTime
+  gapEnd      DateTime
+  minutes     Int
+
+  astronaut Astronaut @relation(fields: [astronautId], references: [id])
+
+  @@unique([astronautId, source, gapStart])
+  @@map("data_gaps")
+}
+
+enum UserRole {
+  astronaut
+  flight_surgeon
+  admin
+}
+
+enum AuthMethod {
+  passcode
+  biometric
+}
+
+// One login account. An astronaut account is bound to exactly one astronaut record.
+model User {
+  id                 String    @id @default(uuid())
+  loginId            String    @unique
+  displayName        String
+  role               UserRole
+  astronautId        String?   @unique
+  passcodeHash       String
+  failedAttempts     Int       @default(0)
+  lockedUntil        DateTime?
+  mustChangePasscode Boolean   @default(false)
+  disabled           Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  astronaut   Astronaut?         @relation(fields: [astronautId], references: [id])
+  credentials PasskeyCredential[]
+  sessions    AuthSession[]
+
+  @@map("users")
+}
+
+// A registered fingerprint / face / security-key credential (WebAuthn).
+model PasskeyCredential {
+  id           String    @id
+  userId       String
+  publicKey    Bytes
+  counter      Int
+  transports   String[]
+  deviceLabel  String
+  createdAt    DateTime  @default(now())
+  lastUsedAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("passkey_credentials")
+}
+
+// Only a hash of the cookie token is stored.
+model AuthSession {
+  id         String     @id
+  userId     String
+  method     AuthMethod
+  createdAt  DateTime   @default(now())
+  lastSeenAt DateTime   @default(now())
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  ip         String?
+  userAgent  String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("auth_sessions")
+}
+
+// A physical Bio-Monitor assigned to one astronaut; the pairing code is stored hashed.
+model BioMonitorDevice {
+  deviceId    String   @id
+  astronautId String
+  pairingHash String
+  label       String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  astronaut Astronaut           @relation(fields: [astronautId], references: [id])
+  sessions  MonitoringSession[]
+
+  @@map("bio_monitor_devices")
+}
+
+// Created when a logged-in astronaut verifies their own Bio-Monitor; readings are accepted only inside one.
+model MonitoringSession {
+  sessionId        String    @id
+  astronautId      String
+  deviceId         String
+  verifiedByUserId String
+  missionDay       Int?
+  startedAt        DateTime  @default(now())
+  endedAt          DateTime?
+
+  astronaut Astronaut        @relation(fields: [astronautId], references: [id])
+  device    BioMonitorDevice @relation(fields: [deviceId], references: [deviceId])
+
+  @@index([astronautId, endedAt])
+  @@map("monitoring_sessions")
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  at          DateTime @default(now())
+  userId      String?
+  loginId     String?
+  astronautId String?
+  action      String
+  success     Boolean
+  ip          String?
+  detail      Json?
+
+  @@index([userId, at])
+  @@index([astronautId, at])
+  @@map("audit_log")
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure access and verified association between astronaut, baseline and monitoring session.">
+    <title>Connection | AstroVital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/pages/connection.css">
+</head>
+<body>
+
+    <!-- Navbar is built by js/navbar.js -->
+    <header class="site-navbar" id="site-navbar"></header>
+
+    <main class="container connection-main">
+
+        <p class="eyebrow" id="connection-eyebrow">MISSION DAY —   /   CREW —</p>
+
+        <span class="pill" id="connection-pill" data-tone="neutral">
+            <span class="status-indicator"></span>
+            <span id="connection-pill-text">Checking Bio-Monitor…</span>
+        </span>
+
+        <h1 class="connection-title">Connection</h1>
+        <p class="connection-lead">
+            Secure access and verified association between astronaut, baseline and monitoring session.
+        </p>
+
+        <!-- Step numbers (01, 02...) are added by CSS. Copy an <li> to add a step. -->
+        <ol class="step-list" id="step-list">
+
+            <li class="card step-card" data-step="1">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Verify identity</h2>
+                        <span class="pill" data-role="step-status" data-tone="neutral">Checking…</span>
+                    </div>
+                    <p class="step-card__description" data-role="step-description">Sign in with your crew passcode or the device's fingerprint / face passkey.</p>
+                </div>
+            </li>
+
+            <li class="card step-card" data-step="2">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Retrieve approved baseline</h2>
+                        <span class="pill" data-role="step-status" data-tone="neutral">Checking…</span>
+                    </div>
+                    <p class="step-card__description" data-role="step-description">Load the correct astronaut's pre-flight means and standard deviations.</p>
+                </div>
+            </li>
+
+            <li class="card step-card" data-step="3">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Connect Bio-Monitor</h2>
+                        <span class="pill" data-role="step-status" data-tone="neutral">Checking…</span>
+                    </div>
+                    <p class="step-card__description" data-role="step-description">Pair with an authorized session and verify the wearer association.</p>
+                </div>
+            </li>
+
+            <li class="card step-card" data-step="4">
+                <div class="step-card__body">
+                    <div class="step-card__header">
+                        <h2 class="step-card__title">Start monitoring</h2>
+                        <span class="pill" data-role="step-status" data-tone="neutral">Checking…</span>
+                    </div>
+                    <p class="step-card__description" data-role="step-description">Check incoming data quality and begin contextual interpretation.</p>
+                </div>
+            </li>
+
+        </ol>
+
+        <section class="card monitor-card" id="monitor-card" aria-labelledby="monitor-card-title">
+            <h2 id="monitor-card-title">Bio-Monitor pairing</h2>
+            <p id="monitor-state" class="monitor-state">Checking…</p>
+            <form id="monitor-pair-form" class="monitor-form" novalidate>
+                <input id="monitor-pair-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Pairing code, e.g. A01-PAIR-0000" aria-label="Pairing code">
+                <button type="submit" class="monitor-button">Verify device</button>
+            </form>
+            <button type="button" id="monitor-end" class="monitor-button monitor-button--ghost" hidden>End monitoring session</button>
+            <p class="monitor-error" id="monitor-pair-error" role="alert" hidden></p>
+        </section>
+
+    </main>
+
+    <p class="prototype-note container">Prototype · synthetic data. Identity is verified by the backend sign-in; readings are accepted only from a Bio-Monitor paired to your account.</p>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/connection.js" defer></script>
+    <script src="js/monitor-pairing.js" defer></script>
+</body>
+</html>

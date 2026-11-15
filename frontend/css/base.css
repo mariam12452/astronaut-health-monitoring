@@ -1,0 +1,128 @@
+/* =========================================
+   BASE: design tokens, reset, page frame
+   Loaded first on every page.
+========================================= */
+
+:root {
+    /* Color: deep-space navy with cyan hologram glow (AstroVital) */
+    --color-primary: #D5F7FC;
+    --color-secondary: #2FD3E6;
+    --color-background: #030D1A;
+    --color-surface: #071B2B;
+    --color-surface-soft: #0B2A3C;
+    --color-text: #DDF4F8;
+    --color-text-muted: #8FB5BF;
+    --color-text-subtle: #648B96;
+    --color-border: #12394B;
+    --color-border-soft: #0E2D3E;
+
+    /* Status colors */
+    --color-success: #3DDC97;
+    --color-success-soft: rgba(61, 220, 151, 0.14);
+    --color-warning: #F2C14E;
+    --color-warning-soft: rgba(242, 193, 78, 0.15);
+    --color-danger: #FF6B6B;
+    --color-danger-soft: rgba(255, 107, 107, 0.16);
+    --color-neutral-soft: #0D2636;
+    --gradient-page: radial-gradient(ellipse 90% 60% at 50% -10%, #0B4A5A 0%, rgba(4, 34, 52, 0.85) 38%, #030D1A 75%);
+    --gradient-accent: linear-gradient(135deg, #2FD3E6 0%, #0E8FA8 100%);
+
+    /* Typography */
+    --font-sans: "Inter", Arial, sans-serif;
+
+    /* Shape and depth */
+    --radius-card: 1rem;
+    --radius-control: 0.625rem;
+    --radius-pill: 2rem;
+    --shadow-card: 0 0.5rem 1.8rem rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(47, 211, 230, 0.06);
+
+    /* Layout (scaled by the media queries below) */
+    --navbar-height: 5rem;
+    --page-gutter: 2.25rem;
+    --page-max-width: 80rem;
+}
+
+@media (max-width: 64rem) {
+    :root { --page-gutter: 1.5rem; }
+}
+
+@media (max-width: 48rem) {
+    :root {
+        --navbar-height: 4.5rem;
+        --page-gutter: 1.25rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    :root { --page-gutter: 1rem; }
+}
+
+
+/* Reset */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 20rem;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--navbar-height);
+}
+
+body {
+    min-height: 100vh;
+    /* Room for the fixed navbar, so no page needs its own offset. */
+    padding-top: var(--navbar-height);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+a,
+button {
+    font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 0.18rem solid var(--color-secondary);
+    outline-offset: 0.2rem;
+}
+
+/* Lets the `hidden` attribute win over any display rule. */
+[hidden] {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* Page content wrapper: centered, with gutters that match the navbar. */
+
+.container {
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+}
+
+
+/* Page backdrop: the navy-to-teal glow from the AstroVital film */
+html { background-color: #030D1A; color-scheme: dark; }
+body { background: var(--gradient-page) fixed, #030D1A; color: var(--color-text); min-height: 100vh; }
+.card { background: linear-gradient(180deg, rgba(11, 42, 60, 0.72), rgba(7, 27, 43, 0.92)); border-color: var(--color-border); backdrop-filter: blur(6px); }
+input, select, textarea { background: #061726; color: var(--color-text); border-color: var(--color-border); }
