@@ -53,21 +53,54 @@ The project's agreed monitoring scope includes ten health parameters:
 These parameters represent the team's agreed project scope. They may require different measurement technologies, acquisition methods and collection frequencies.
 
 ## 5. Data Sources and Simulation
+The proposed system is designed to receive health measurements from multiple sources. These may include wearable monitoring devices, separate medical measurement technologies, scheduled clinical assessments and simulated data used during prototype development.
+5.1 Data Sources
+The project considers the following sources:
+Data Source	Purpose
+Canadian Space Agency (CSA) Bio-Monitor	Provides a reference for wearable physiological monitoring in space, including heart rate, blood pressure, breathing, oxygen saturation and physical activity.
+Hexoskin/Astroskin documentation	Provides technical reference material on wearable sensor data, data formats and possible software integration approaches.
+Separate medical measurement technologies	Represent the additional equipment required for parameters not documented as Bio-Monitor measurements, including ultrasound-based cardiovascular and ocular assessments.
+Simulated data	Provides sample measurements for developing and testing the application's data-processing, storage, monitoring and visualisation functions.
 
-The current prototype uses simulated physiological readings to demonstrate the application's data-handling, monitoring and visualisation capabilities.
 
-The simulated readings are illustrative and do not represent actual astronaut medical records or live measurements from an operational spaceflight monitoring device.
+5.2 Data Simulation
+During prototype development, simulated health measurements may be used to demonstrate how the application receives, processes, stores and displays astronaut health information.
 
-The project's research and design are informed by external scientific and technical resources, including:
+Each simulated record will contain relevant information such as:
+- Astronaut identifier
+- Measurement timestamp
+- Health parameter
+- Recorded value
+- Unit of measurement
+- Data source
+- Measurement quality or status, where applicable
+An example of a simulated measurement record is shown below:
+{
+  "astronaut_id": "AST001",
+  "timestamp": "2026-11-14T10:00:00Z",
+  "parameter": "spo2",
+  "value": 98,
+  "unit": "%",
+  "source": "simulated"
+}
 
-- Canadian Space Agency Bio-Monitor documentation.
-- AstroSkin wearable health-monitoring documentation.
-- Hexoskin technical and developer documentation.
-- Relevant spaceflight health research and scientific literature.
+The values used in simulated records are illustrative and are not actual astronaut measurements or clinically validated reference values.
+5.3 Data Integration Considerations
+The project recognises that the selected health parameters require different measurement technologies and data acquisition methods.
 
-These resources inform the proposed monitoring approach, measurement characteristics and potential data-integration methods.
+Not all parameters are measured by a single wearable device. Therefore, the proposed system is designed to accommodate measurements from multiple sources through a common data-processing structure.
 
-Detailed resource descriptions and their contributions will be provided in the project documentation.
+The application will aim to:
+- Receive measurements from available data sources or simulated inputs.
+- Organise incoming measurements into a consistent data format.
+- Associate each measurement with an astronaut and timestamp.
+- Validate incoming records before processing.
+- Store measurements for historical review and trend analysis.
+Direct integration with operational spaceflight monitoring hardware will depend on the availability of compatible interfaces, access permissions and technical documentation.
+5.4 Scope of Current Data
+At the prototype stage, simulated data will be used where actual device data or compatible interfaces are unavailable.
+
+The use of simulated data allows the team to demonstrate the application's intended functionality without presenting generated measurements as real astronaut health records.
 
 ## 6. System Architecture
 
