@@ -106,24 +106,69 @@ At the prototype stage, simulated data will be used where actual device data or 
 The use of simulated data allows the team to demonstrate the application's intended functionality without presenting generated measurements as real astronaut health records.
 
 ## 6. System Architecture
+The proposed astronaut health-monitoring system follows a modular architecture designed to receive, process, store, analyse and display physiological measurements from multiple data sources.
 
-The proposed system follows a general data-processing workflow:
+The architecture separates data acquisition, processing, storage, monitoring and visualisation to support easier development, testing and future integration with additional monitoring devices.
 
-Measurement Sources
-        ↓
-Data Acquisition
-        ↓
-Data Validation and Processing
-        ↓
-Data Storage
-        ↓
-Health Monitoring and Interpretation
-        ↓
-Dashboard and Visualisation
+6.1 System Workflow
+The proposed data flow is:
+1. Data Sources: Health measurements are obtained from available monitoring devices, separate medical measurement technologies or simulated data generators.
+2. Data Ingestion: Incoming measurements are received by the application through an appropriate input interface or API.
+3. Data Validation and Normalisation: The system checks incoming records for required fields, valid formats, units, timestamps and data quality. Measurements are organised into a consistent structure.
+4. Data Storage: Validated measurements are stored with their associated astronaut identifiers, timestamps, parameter names, values and units.
+5. Health Monitoring Engine: The system evaluates measurements against defined reference information and, where available, individual astronaut baselines. It also considers relevant context, such as activity level and changes over time.
+6. Dashboard and Visualisation: Processed information is presented through a dashboard showing current readings, historical trends, monitoring statuses and relevant explanations.
 
-The architecture is designed to accommodate measurements from different sources through a common software platform.
+6.2      HEALTH DATA SOURCES
+  ┌──────────┬──────────┬──────────┐
+  │ Wearable │ Medical  │ Simulated│
+  │ Devices  │ Equipment│  Data   │
+  └────┬─────┴────┬─────┴────┬─────┘
+       └──────────┼──────────┘
+                  ↓
+        DATA INGESTION (API / Input Interface)
+                  ↓
+   DATA VALIDATION AND NORMALISATION
+                  ↓
+             DATA STORAGE
+                  ↓
+        HEALTH MONITORING ENGINE
+                  ↓
+       DASHBOARD AND VISUALISATION
+                  ↓
+       HEALTH STATUS AND TREND REPORTS
 
-Not all parameters are assumed to originate from a single wearable device.
+6.3 Core System Components
+| Component | Responsibility |
+|---|---|
+| Data Acquisition Layer	| Receives measurements from available devices, medical sources or simulated inputs. |
+| Data Ingestion Interface	| Provides the entry point through which measurement records enter the application. |
+| Validation and Normalisation Layer	| Checks data completeness, formats, units, timestamps and measurement quality. |
+| Database	| Stores health measurements and associated astronaut information for retrieval and analysis. | 
+| Health Monitoring Engine |	Evaluates measurements, compares them with available baselines and identifies relevant changes or deviations. |
+| Dashboard	| Displays health measurements, monitoring statuses, historical trends and explanations. |
+
+6.4 Monitoring and Alert Generation
+The monitoring engine is intended to evaluate health measurements using defined monitoring rules.
+
+Rather than relying exclusively on fixed population reference values, the proposed system will consider individual baselines and relevant activity context where sufficient data are available.
+
+The prototype will use understandable monitoring categories:
+- NORMAL: No significant deviation identified by the configured monitoring rules.
+- WATCH: A measurement or trend requires closer observation.
+- ATTENTION: A notable deviation or persistent change requires further review.
+Each status should be accompanied by an explanation of the measurement or trend that triggered it.
+
+These categories represent prototype decision-support outputs. They are not clinically validated diagnoses or emergency medical classifications.
+6.5 Design Considerations
+The architecture is designed around the following considerations:
+- Multiple data sources: The system should accommodate measurements obtained through different devices and technologies.
+- Data consistency: Measurements should follow a common structure while retaining their original units and source information.
+- Individual monitoring: Health trends should be interpreted in relation to available individual baseline measurements.
+- Activity context: Physical activity should be considered when interpreting relevant physiological changes.
+- Historical tracking: Measurements should be stored to support trend analysis over time.
+- Data quality: Missing, outdated or unreliable measurements should be identified rather than automatically classified as normal.
+- Modularity: Components should be designed so that additional data sources and monitoring capabilities can be incorporated later.
 
 ## 7. Project Development Status
 
